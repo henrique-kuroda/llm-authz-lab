@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: llm-authz-lab
+  # lê os segredos do .env da raiz (mesmo arquivo usado pelo docker compose)
+  config:
+    import: optional:file:.env[.properties]
+
+  # Baseline: UMA conexão com o dono do banco (superusuário). Proposital.
+  datasource:
+    url: jdbc:postgresql://localhost:${POSTGRES_PORT:55432}/authzlab
+    username: lab_owner
+    password: ${POSTGRES_PASSWORD}
+
+server:
+  address: 127.0.0.1
+  port: 8080
+
+llm:
+  gemini:
+    base-url: https://generativelanguage.googleapis.com/v1beta
+    api-key: ${GEMINI_API_KEY:}
+    model: ${GEMINI_MODEL:gemini-2.5-flash}
+    temperature: 0
+
+consulta:
+  max-linhas: 500
+  timeout-segundos: 10
