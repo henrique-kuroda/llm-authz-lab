@@ -40,7 +40,7 @@ docker compose down -v && docker compose up -d
 ## Roadmap
 
 - [x] Fase 0 — ambiente isolado
-- [ ] Fase 1 — base + matriz
+- [x] Fase 1 — base + matriz
 - [ ] Fase 2 — baseline vulnerável
 - [ ] Fase 3 — camadas de defesa com toggles
 - [ ] Fase 4 — catálogo de ataques + runner
