@@ -1,9 +1,12 @@
 package com.henriqueKuroda.llm_authz_lab.llm;
 
+import java.net.http.HttpClient;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -17,7 +20,11 @@ public class GeminiClient implements LlmClient {
 
 	public GeminiClient(RestClient.Builder builder, GeminiProperties props) {
 		this.props = props;
-		this.restClient = builder.baseUrl(props.baseUrl()).build();
+		// sem timeout, uma chamada presa no provedor trava a requisição indefinidamente
+		Duration timeout = Duration.ofSeconds(props.timeoutSegundos());
+		var requestFactory = new JdkClientHttpRequestFactory(HttpClient.newBuilder().connectTimeout(timeout).build());
+		requestFactory.setReadTimeout(timeout);
+		this.restClient = builder.baseUrl(props.baseUrl()).requestFactory(requestFactory).build();
 	}
 
 	@Override
