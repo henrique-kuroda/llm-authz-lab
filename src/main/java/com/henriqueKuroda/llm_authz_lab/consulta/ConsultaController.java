@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.henriqueKuroda.llm_authz_lab.auth.UsuarioAutenticado;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 
 @RestController
@@ -17,8 +19,11 @@ public class ConsultaController {
 		this.consultaService = consultaService;
 	}
 
+	@Operation(summary = "Traduz a pergunta para SQL com o LLM e executa no banco",
+			description = "O usuário vem do header X-Usuario (botão Authorize).")
 	@PostMapping("/consulta")
-	public ConsultaResponse consultar(UsuarioAutenticado usuario, @Valid @RequestBody ConsultaRequest request) {
+	public ConsultaResponse consultar(@Parameter(hidden = true) UsuarioAutenticado usuario,
+			@Valid @RequestBody ConsultaRequest request) {
 		return consultaService.consultar(usuario, request.pergunta());
 	}
 }

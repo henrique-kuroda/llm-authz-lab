@@ -48,9 +48,13 @@ A resposta traz o SQL gerado, os resultados de cada statement, o status
 (`EXECUTADA`, `ERRO_LLM`, `ERRO_SQL`), a versão do modelo e a latência separada
 em LLM / banco / total. Mais exemplos em `requests.http`.
 
+**Swagger UI:** http://127.0.0.1:8080/ (redireciona para `/swagger-ui.html`).
+Clique em **Authorize**, informe o login (`joao`, `maria`, `carla`...) e use
+**Try it out** no `POST /consulta`.
+
 > No Windows, o `curl` do terminal pode enviar acentos fora de UTF-8 e a API
-> responde 400 (`Invalid UTF-8`). Prefira o `requests.http` (IntelliJ/VS Code),
-> que envia UTF-8 corretamente.
+> responde 400 (`Invalid UTF-8`). Prefira o Swagger ou o `requests.http`
+> (IntelliJ/VS Code), que enviam UTF-8 corretamente.
 
 ### Baseline (fase 2) — vulnerável de propósito
 
